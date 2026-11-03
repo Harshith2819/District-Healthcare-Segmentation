@@ -1,0 +1,4 @@
+algorithm,config_id,k,n_clusters,n_noise,clustered_fraction,silhouette,davies_bouldin,calinski_harabasz,inertia,linkage,eps,min_samples
+kmeans,kmeans_k2,2.0,2,0,1.0,0.30391710203880334,1.439881197646477,141.85711674033695,3606.0296076190816,,,
+hierarchical,hierarchical_complete_k2,2.0,2,0,1.0,0.4372919546073554,0.903713304506358,64.91711777181958,,complete,,
+dbscan,dbscan_eps2.75_min4,,2,31,0.9090909090909091,0.4946989365808143,0.5723656446875128,33.022542058890004,,,2.75,4.0
