@@ -1,0 +1,4 @@
+algorithm,config_id,replicates,valid_replicates,ari_mean,ari_median,ari_std,retained_overlap_median
+dbscan,dbscan_eps2.75_min4,50,25,1.0,1.0,0.0,0.8930232558139535
+hierarchical,hierarchical_complete_k2,50,50,0.7553321836696826,0.8124184618146919,0.22543286354089154,1.0
+kmeans,kmeans_k2,50,50,0.9070619856822969,0.9245453744209547,0.09576238081861489,1.0

@@ -1,0 +1,2 @@
+algorithm,config_id,seeds_tested,pairwise_comparisons,ari_mean,ari_median,ari_min
+kmeans,kmeans_k2,50,1225,1.0,1.0,1.0
