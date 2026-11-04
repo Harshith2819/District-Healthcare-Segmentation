@@ -1,0 +1,181 @@
+/* Dashboard controls */
+.control-deck {
+  position: relative;
+  z-index: 40;
+  grid-template-columns: 1fr 1fr 1fr 0.7fr;
+}
+
+/* Scenario Controls first; Scenario Impact directly below. */
+.simulation-layout {
+  grid-template-columns: 1fr;
+}
+
+/* Keep the impact card compact after stacking it below the controls. */
+.simulation-result {
+  min-height: 420px;
+}
+
+.simulation-result .delta {
+  margin: 28px 0 8px;
+}
+
+.simulation-controls #reset-button {
+  padding: 10px 18px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+/* Legacy native State and Compare controls: dark, matching the dashboard theme. */
+#state-select,
+#compare-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background-color: #151e30;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #c4b5fd 50%),
+    linear-gradient(135deg, #c4b5fd 50%, transparent 50%);
+  background-position:
+    calc(100% - 15px) 50%,
+    calc(100% - 10px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  color: #f4f6fc;
+  border: 0;
+  border-bottom: 1px solid rgba(222, 228, 255, 0.16);
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  padding: 8px 28px 10px 0;
+  font: 600 14px Manrope, Arial, sans-serif;
+  color-scheme: dark;
+}
+
+#state-select:focus,
+#compare-select:focus {
+  border-bottom-color: #a78bfa;
+}
+
+#state-select option,
+#compare-select option {
+  background: #151e30;
+  color: #f4f6fc;
+}
+
+/* Animated district/state/comparison pickers. */
+.district-picker {
+  position: relative;
+}
+
+.district-picker > button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0 9px;
+  border: 0;
+  border-bottom: 1px solid rgba(222, 228, 255, 0.16);
+  border-radius: 0;
+  background: transparent;
+  color: #f4f6fc;
+  font: 600 14px Manrope, Arial, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.district-picker > button:focus {
+  outline: none;
+  border-bottom-color: #a78bfa;
+}
+
+.district-picker > button b {
+  color: #c4b5fd;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.district-popover {
+  position: absolute;
+  z-index: 999;
+  top: calc(100% + 12px);
+  left: -10px;
+  width: min(430px, calc(100vw - 56px));
+  padding: 10px;
+  background: #111a2b;
+  border: 1px solid rgba(196, 181, 253, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(24px);
+}
+
+.district-popover[hidden] { display: none; }
+
+.district-popover input[type="search"] {
+  width: 100%;
+  border: 1px solid rgba(222, 228, 255, 0.16);
+  border-radius: 10px;
+  background: #0b111e;
+  color: #f4f6fc;
+  padding: 11px 12px;
+  outline: none;
+  font: 13px Manrope, Arial, sans-serif;
+}
+
+.district-popover input[type="search"]:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.14);
+}
+
+.animated-list {
+  max-height: 350px;
+  overflow: auto;
+  padding: 8px 2px 2px;
+  scrollbar-color: #a78bfa #111a2b;
+}
+
+.animated-list-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border: 0;
+  border-bottom: 1px solid rgba(222, 228, 255, 0.08);
+  background: transparent;
+  color: #f4f6fc;
+  padding: 11px 9px;
+  text-align: left;
+  cursor: pointer;
+  animation: list-pop 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--item-delay, 0s) both;
+}
+
+.animated-list-item:last-child { border-bottom: 0; }
+.animated-list-item:hover,
+.animated-list-item.selected { background: rgba(167, 139, 250, 0.16); border-radius: 9px; }
+.animated-list-item strong { display: block; font: 600 13px Manrope, Arial, sans-serif; }
+.animated-list-item small { display: block; color: #a3aec4; font-size: 11px; margin-top: 2px; }
+.animated-list-item em { color: #c9f66c; font: 11px 'DM Mono', monospace; font-style: normal; }
+.no-results { color: #a3aec4; padding: 14px 9px; font-size: 12px; }
+
+@keyframes list-pop {
+  from { opacity: 0; transform: scale(0.96) translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Scroll-triggered content entrance. */
+.reveal { animation: none; opacity: 0; transform: translateY(100px); }
+.reveal.is-visible { animation: content-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.reveal.is-visible > * { animation: content-child 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--content-delay, 0s) both; }
+
+@keyframes content-enter { to { opacity: 1; transform: translateY(0); } }
+@keyframes content-child { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible,
+  .reveal.is-visible > * { animation: none; opacity: 1; transform: none; }
+}
+
+@media (max-width: 800px) {
+  .control-deck { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>District Healthcare Access Segmentation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=20261101">
+  <link rel="stylesheet" href="{{ url_for('static', filename='overrides.css') }}?v=20261101">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="wordmark" href="#home">D<span>H</span>A</a>
+    <nav><a href="#explorer">Explorer</a><a href="#simulator">Simulator</a><a href="#methods">Methods</a></nav>
+    <a class="header-cta" href="#explorer">Open dashboard <span>↗</span></a>
+  </header>
+  <main id="home">
+    <section class="hero reveal">
+      <p class="kicker">NFHS-5 · UNSUPERVISED LEARNING · RURAL SERVICE PRIORITIZATION</p>
+      <h1><span class="stroke-text">District</span><br>Healthcare<br><em>Access</em> Segmentation.</h1>
+      <div class="hero-bottom"><p>Turn 15 healthcare-access indicators across 341 districts into an explainable, interactive service-prioritization view.</p><a class="specular-button" href="#explorer">Explore the data <span>↓</span></a></div>
+      <div class="hero-orbit"><span>15</span><small>indicators<br>standardized</small></div>
+    </section>
+
+    <section class="stat-ribbon reveal" id="stat-ribbon"></section>
+
+    <section class="section-title reveal" id="explorer"><p class="kicker">01 · LIVE ANALYTICS</p><h2>See the pattern.<br><em>Question the cluster.</em></h2><p>Every visualization uses the project’s actual cleaned NFHS-5 district values. Select a district, then inspect the model from multiple angles.</p></section>
+
+    <section class="control-deck reveal">
+      <div class="district-picker"><label for="district-trigger">Focus district</label><button id="district-trigger" type="button" aria-expanded="false"><span id="district-trigger-text">Choose a district</span><b>⌄</b></button><div id="district-popover" class="district-popover" hidden><input id="district-search" type="search" placeholder="Search district or state"><div id="district-list" class="animated-list" role="listbox"></div></div></div>
+      <div class="district-picker"><label for="state-trigger">Filter by state</label><button id="state-trigger" type="button" aria-expanded="false"><span id="state-trigger-text">All states</span><b>⌄</b></button><div id="state-popover" class="district-popover" hidden><input id="state-search" type="search" placeholder="Search state"><div id="state-list" class="animated-list" role="listbox"></div></div></div>
+      <div class="district-picker"><label for="compare-trigger">Compare against</label><button id="compare-trigger" type="button" aria-expanded="false"><span id="compare-trigger-text">Choose a district</span><b>⌄</b></button><div id="compare-popover" class="district-popover" hidden><input id="compare-search" type="search" placeholder="Search comparison district"><div id="compare-list" class="animated-list" role="listbox"></div></div></div>
+      <div class="active-segment"><span>BASELINE SEGMENT</span><strong id="selected-segment">—</strong></div>
+    </section>
+
+    <section class="bento-grid reveal">
+      <article class="card score-card"><div class="card-top"><span>ANALYTICAL SCORE</span><i>01</i></div><div class="score-number" id="score-number">—</div><p id="score-caption">Loading district values…</p><div class="progress"><i id="score-progress"></i></div><small>Unweighted, min–max scaled. Not an official health index.</small></article>
+      <article class="card chart-card wide"><div class="card-top"><span>15 INDICATORS · LIVE + COMPARISON BAR GRAPH</span><i>02</i></div><canvas id="indicator-chart"></canvas></article>
+      <article class="card chart-card"><div class="card-top"><span>SCENARIO SCORE · PIE CHART</span><i>03</i></div><canvas id="cluster-chart"></canvas></article>
+      <article class="card chart-card"><div class="card-top"><span>DISTRICT VS. SEGMENT · RADAR</span><i>04</i></div><canvas id="radar-chart"></canvas></article>
+    </section>
+
+    <section class="section-title reveal" id="simulator"><p class="kicker">02 · WHAT-IF LAB</p><h2>Change an input.<br><em>Watch every chart react.</em></h2><p>This is a transparent score recalculation—not an outcome prediction and never a modification of the original data.</p></section>
+    <section class="simulation-layout reveal">
+      <article class="simulation-controls card"><div class="card-top"><span>SCENARIO CONTROLS</span><button id="reset-button">Reset</button></div><p id="sim-note">Move a value to model a hypothetical improvement or decrease.</p><div id="sliders"></div></article>
+      <article class="card simulation-result"><div class="card-top"><span>SCENARIO IMPACT</span><i>05</i></div><div class="delta" id="score-delta">—</div><p id="delta-copy">Original and simulated score appear here.</p><canvas id="scenario-chart"></canvas></article>
+    </section>
+
+    <section class="section-title reveal"><p class="kicker">03 · PRIORITIZATION</p><h2>From variation<br>to <em>actionable gaps.</em></h2></section>
+    <section class="priority-layout reveal">
+      <article class="card gap-card"><div class="card-top"><span>CLUSTER GAP ANALYZER</span><i>06</i></div><div id="gap-bars"></div></article>
+      <article class="card chart-card"><div class="card-top"><span>STATE SCORE TREND · AREA GRAPH</span><i>07</i></div><canvas id="state-chart"></canvas><p class="chart-note">States ordered by mean analytical score. Hover for exact values.</p></article>
+    </section>
+
+    <section class="section-title reveal" id="methods"><p class="kicker">04 · MODEL TRANSPARENCY</p><h2>The model is visible.<br><em>Not a black box.</em></h2></section>
+    <section class="method-grid reveal">
+      <article class="card insight-card"><div class="card-top"><span>AUTOMATIC INSIGHTS</span><i>08</i></div><ul id="insight-list"></ul></article>
+      <article class="card quality-card"><div class="card-top"><span>DATA QUALITY</span><i>09</i></div><strong id="quality-value">—</strong><p id="quality-copy"></p><div class="quality-grid"><span>15 features</span><span>Scaled</span><span>Cleaned table</span></div></article>
+      <article class="card methods-card"><div class="card-top"><span>ALGORITHM EXPERIMENTS</span><i>10</i></div><div id="algorithm-list"></div><p class="method-foot" id="stability-note"></p></article>
+    </section>
+  </main>
+  <aside class="dock"><a href="#home" aria-label="Home">⌂</a><a href="#explorer" aria-label="Explorer">◌</a><a href="#simulator" aria-label="Simulator">⌁</a><a href="#methods" aria-label="Methods">✦</a></aside>
+  <footer><span>District Healthcare Access Segmentation</span><span>Built from the supplied NFHS-5 project outputs · Analytical use only</span></footer>
+  <script src="{{ url_for('static', filename='app.js') }}?v=20261101"></script>
+</body>
+</html>

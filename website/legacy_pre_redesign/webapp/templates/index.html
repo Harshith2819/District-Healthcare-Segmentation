@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>District Healthcare Access Segmentation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">NFHS-5 • Rural service prioritization</p>
+    <h1>District Healthcare Access Segmentation</h1>
+    <p id="subtitle">Loading verified project outputs…</p>
+    <nav><a href="#explorer">Explorer</a><a href="#district">District profile</a><a href="#simulator">What-if</a><a href="#methods">Methods</a></nav>
+  </header>
+  <main>
+    <section class="cards" id="summary-cards"></section>
+    <section class="panel" id="insights"><h2>Automatic insights</h2><ul id="insight-list"></ul></section>
+
+    <section class="panel" id="explorer">
+      <div class="section-heading"><div><p class="eyebrow">Interactive India explorer</p><h2>Find districts by state and coverage segment</h2></div><label>State <select id="state-select"></select></label></div>
+      <div class="split"><div id="state-card" class="callout"></div><div class="map-placeholder" id="map-status"></div></div>
+      <div class="table-wrap"><table><thead><tr><th>District</th><th>Segment</th><th>Analytical score</th></tr></thead><tbody id="state-districts"></tbody></table></div>
+    </section>
+
+    <section class="panel" id="district">
+      <div class="section-heading"><div><p class="eyebrow">Explainable clustering</p><h2>District profile</h2></div><label>District <select id="district-select"></select></label></div>
+      <div id="district-explanation" class="split"></div>
+      <div class="table-wrap"><table><thead><tr><th>Indicator</th><th>District</th><th>Assigned-cluster average</th><th>Difference</th></tr></thead><tbody id="profile-table"></tbody></table></div>
+    </section>
+
+    <section class="panel" id="comparison">
+      <div class="section-heading"><div><p class="eyebrow">District comparison</p><h2>Compare two districts</h2></div><div class="inline-controls"><label>A <select id="compare-a"></select></label><label>B <select id="compare-b"></select></label></div></div>
+      <div id="comparison-summary" class="callout"></div>
+      <div class="table-wrap"><table><thead><tr><th>Indicator</th><th id="compare-a-head">District A</th><th id="compare-b-head">District B</th><th>Difference (A − B)</th></tr></thead><tbody id="comparison-table"></tbody></table></div>
+    </section>
+
+    <section class="panel" id="simulator">
+      <p class="eyebrow">What-if simulator</p><h2>Explore score changes, not predictions</h2>
+      <p class="muted">The simulator recalculates the analytical score from changed inputs. It does not predict health outcomes or change the original district data.</p>
+      <div class="callout"><strong id="sim-district"></strong><span id="score-result"></span><button id="reset-simulation">Reset values</button></div>
+      <div id="sim-controls" class="slider-grid"></div>
+    </section>
+
+    <section class="panel" id="gaps">
+      <p class="eyebrow">Healthcare gap analyzer</p><h2>Indicators most separating the baseline segments</h2>
+      <div id="gap-bars" class="bars"></div>
+    </section>
+
+    <section class="panel" id="quality">
+      <p class="eyebrow">Data quality dashboard</p><h2>Completeness, imputation, and scaling checks</h2>
+      <div id="quality-summary" class="split"></div>
+      <div class="table-wrap"><table><thead><tr><th>Indicator</th><th>Range</th><th>Missing</th><th>Scaled mean</th><th>Scaled std.</th></tr></thead><tbody id="quality-table"></tbody></table></div>
+    </section>
+
+    <section class="panel" id="methods">
+      <p class="eyebrow">Algorithm experimentation and stability</p><h2>Real model results</h2>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>Configuration</th><th>Clusters</th><th>Silhouette</th><th>Davies–Bouldin</th><th>Coverage</th></tr></thead><tbody id="algorithm-table"></tbody></table></div>
+      <div id="stability-summary" class="callout"></div>
+    </section>
+  </main>
+  <footer>Analytical tool based on supplied NFHS-5 project outputs. Cluster labels and coverage scores are analytical aids, not official classifications or health indices.</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
